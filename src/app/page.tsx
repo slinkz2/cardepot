@@ -1,27 +1,26 @@
 import { SignedIn, SignedOut } from "@clerk/nextjs";
-import Link from "next/link";
 import { db } from "~/server/db";
 import Carousel from "./_components/carousel";
 import { eq } from "drizzle-orm";
 import { auth } from "@clerk/nextjs/server";
-
-
+import { getMyImages } from "~/server/queries";
+import { object } from "zod";
+import Image from "next/image";
 
 export const dynamic = "force-dynamic";
-
 async function Images(){
-  const user =  await auth();
-  if (!user.userId) throw new Error ("Unauthorized");
-  
-  const images = await db.query.images.findMany({
-    where: (model) => eq(model.userId, user.userId),
-    orderBy: (model, {desc}) => desc(model.id),
-  });
-  return (
+  const images = await getMyImages();
+  return (  
     <div className="flex flex-wrap gap-6">
-      {images.map((image, index) => (
+      {images.map((image) => (
         <div key={image.id} className="w-75 flex flex-col items-center">
-          <img src={image.url} className="w-full h-auto rounded-lg shadow-md" />
+          <Image
+           src={image.url} 
+           style={{objectFit: "contain"}}
+           width={480}
+           height={480}
+           alt={image.name}
+           />
           <div className="text-center mt-2 font-medium">{image.name}</div>
         </div>
       ))}

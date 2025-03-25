@@ -1,5 +1,5 @@
-import {auth} from "@clerk/nextjs/server";
 import "server-only";
+import {auth} from "@clerk/nextjs/server";
 import {db} from "./db";
 import {eq} from "drizzle-orm";
 
@@ -12,4 +12,6 @@ export async function getMyImages(){
         where: (model) => eq(model.userId, user.userId),
         orderBy: (model, {desc}) => desc (model.id),
     });
+
+    return images;
 }
