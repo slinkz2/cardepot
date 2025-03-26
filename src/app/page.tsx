@@ -38,13 +38,16 @@ export default async function HomePage() {
         <div className="h-full w-full p-1 text-2xl text-center ">
             𝗣𝗟𝗘𝗔𝗦𝗘 𝗦𝗜𝗚𝗡 𝗜𝗡 𝗧𝗢 𝗦𝗘𝗘 𝗠𝗢𝗥𝗘 𝗖𝗔𝗥 𝗜𝗠𝗔𝗚𝗘𝗦
         </div>
-        <footer className="w-full text-center text-sm p-2 bg-auto fixed bottom-0">
-            © CAR DEPOT PHILIPPINES CORPORATION. 2025 ALL RIGHTS RESERVED
-        </footer>
       </SignedOut>
+      <footer className="w-full text-center text-sm p-2 bg-auto fixed bottom-0">
+            © CAR DEPOT PHILIPPINES CORPORATION. 2025 ALL RIGHTS RESERVED
+       </footer>
       <SignedIn>
         <Images />
       </SignedIn>
+      <footer className="w-full text-center text-sm p-2 bg-auto fixed bottom-0">
+            © CAR DEPOT PHILIPPINES CORPORATION. 2025 ALL RIGHTS RESERVED
+       </footer>
     
     </main>
   );

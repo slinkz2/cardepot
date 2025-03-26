@@ -24,6 +24,11 @@ export const images = createTable(
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
     updatedAt: d.timestamp({ withTimezone: true }).$onUpdate(() => new Date()),
+    description: d.varchar("description", { length: 1024 }),
+    engine: d.varchar("engine", { length: 1024 }), 
+    transmission: d.varchar("transmission", { length: 1024 }),  
+    fuel: d.varchar("fuel",{length: 256}),
+    displacement: d.varchar("displacement",{length: 256}), 
   }),
   (t) => [index("name_idx").on(t.name)],
 );

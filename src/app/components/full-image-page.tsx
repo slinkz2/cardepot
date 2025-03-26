@@ -27,8 +27,38 @@ export default async function FullPageImageView(props: {id: number}) {
               <span className="font-medium">Created At: </span>
               <span>{new Date(image.createdAt).toLocaleDateString()}</span>
             </div>
+            <div>
+            <span className="flex text-3xl">Description: </span>
+            <div className="text-m text-gray-400 whitespace-pre-line">{image.description}</div>
+            </div>
+
+            <span className="flex text-3xl">Specification </span>
+
+            <div>
+            <span className="font-medium">Engine: </span>
+            <div className="text-m text-gray-400 whitespace-pre-line">{image.engine}</div>
+            </div> 
+
+            <div>
+            <span className="font-medium">Fuel Type: </span>
+            <div className="text-m text-gray-400 whitespace-pre-line">{image.fuel}</div>
+            </div> 
+
+            <div>
+            <span className="font-medium">Engine Displacement: </span>
+            <div className="text-m text-gray-400 whitespace-pre-line">{image.displacement}</div>
+            </div>
+
+            <div>
+            <span className="font-medium">Transmission: </span>
+            <div className="text-m text-gray-400 whitespace-pre-line">{image.transmission}</div>
+            </div> 
+
+            
+            
           </div>
         </div>
+        
       );
       
 }

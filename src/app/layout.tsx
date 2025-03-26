@@ -43,7 +43,9 @@ export default function RootLayout({
         <PostHogProvider>
             <div>
               <Topnav />    
-              <main className=" ">{children}</main>
+              <main className=" ">
+                {children}
+              </main>
             </div>
             {modal}
             <div id="modal-root"></div>
