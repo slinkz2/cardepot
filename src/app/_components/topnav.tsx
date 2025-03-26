@@ -6,14 +6,19 @@ import { SimpleUploadButton } from "./simple-upload-button";
 export default function TopNav() {
   return (
     <nav className="relative flex w-full py-4 px-5 text-xl font-semibold items-center justify-between">
-    
-      <div className="absolute left-1/2 transform -translate-x-1/2 ">
-        <img 
-          src="https://c8hsctiqb3.ufs.sh/f/RXFntDrDYyBvF36gMJnTCaWmAZ3pbMLntQhvHPglDd5x9K8i" 
-          alt="Logo" 
-          className="h-12" 
-        />
-      </div>
+  {/* Left side placeholder (if needed) */}
+  <div className="w-1/3"></div>
+
+  {/* Centered Logo */}
+  <div className="flex justify-center items-center w-1/3">
+    <img 
+      src="https://c8hsctiqb3.ufs.sh/f/RXFntDrDYyBvF36gMJnTCaWmAZ3pbMLntQhvHPglDd5x9K8i" 
+      alt="Logo" 
+      className="h-12"
+    />
+  </div>
+
+  
 
     
       <div className="flex flex-row items-center ml-auto space-x-5">
@@ -24,11 +29,11 @@ export default function TopNav() {
             </button>
           </SignInButton>
         </SignedOut>  
-
         <SignedIn>
           <SimpleUploadButton />
           <UserButton />
         </SignedIn>
+   
       </div>
     </nav>
   );

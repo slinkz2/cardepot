@@ -50,9 +50,6 @@ export default function RootLayout({
             {modal}
             <div id="modal-root"></div>
             <Toaster/>
-          <SignedOut>
-            <Carousel />
-          </SignedOut>
         </PostHogProvider>
         </body>
       </html>
