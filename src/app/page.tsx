@@ -54,8 +54,8 @@ export default async function HomePage() {
         <SignedIn>
           <Images />
           <footer className="w-full text-center text-sm p-10 bg-auto ">
-        © CAR DEPOT PHILIPPINES CORPORATION. 2025 ALL RIGHTS RESERVED
-      </footer>
+            © CAR DEPOT PHILIPPINES CORPORATION. 2025 ALL RIGHTS RESERVED
+         </footer>
         </SignedIn>
       </main>
     </div>

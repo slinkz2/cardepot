@@ -6,8 +6,6 @@ import { SimpleUploadButton } from "./simple-upload-button";
 export default function TopNav() {
   return (
     <nav className="relative flex w-full py-4 px-5 text-xl font-semibold items-center justify-between">
-  {/* Left side placeholder (if needed) */}
-  <div className="w-1/3"></div>
 
   {/* Centered Logo */}
   <div className="flex justify-center items-center w-1/3">
