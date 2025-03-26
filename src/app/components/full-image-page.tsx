@@ -46,7 +46,7 @@ export default async function FullPageImageView(props: {id: number}) {
 
             <div>
             <span className="font-medium">Engine Displacement: </span>
-            <div className="text-m text-gray-400 whitespace-pre-line">{image.displacement}</div>
+            <div className="text-m text-gray-400 whitespace-pre-line">{image.displacement }</div>
             </div>
 
             <div>
