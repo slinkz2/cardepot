@@ -2,17 +2,17 @@
 
 import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
 import Link from "next/link";
-import { getMyImages } from "~/server/queries";
-import { Card, CardContent } from "../app/components/ui/card";
+import { Card, CardContent } from "~/app/components/ui/card";
 import { timeAgo } from "~/utils/helpers";
-import UserView from "../app/components/User-View";
-import UploadModal from "../app/components/Upload-modal";
-
+import { deleteImage, getMyUserImages } from "~/server/queries";
+import BackButton from "~/app/components/BackButton";
+import UserImage from "~/app/components/UserImage";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "~/app/components/ui/alert-dialog";
 
 export const dynamic = "force-dynamic";
 
 async function Images() {
-  const images = await getMyImages();
+  const images = await getMyUserImages();
 
   return (
     <div className="flex flex-col items-center gap-4 w-full max-w-2xl mx-auto">
@@ -47,7 +47,7 @@ async function Images() {
           </div>
           <Link href={`/img/${image.id}`} className="mt-1 block w-full h-[400px] overflow-hidden bg-muted pr-4 pl-4 pb-4">
             <div className="relative h-full w-full">
-            <img
+              <img
                 src={image.url || "/placeholder.svg"}
                 alt={image.name}
                 style={{
@@ -60,11 +60,53 @@ async function Images() {
               />
             </div>
           </Link>
+          {/* Delete Button */}
+          <div className="flex justify-end p-4">
+            <AlertDialog>
+                  <AlertDialogTrigger>Delete post</AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                      <AlertDialogDescription>
+                      This action cannot be undone. This will permanently delete your post.
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                    <form
+                    action={async (formData: FormData) => {
+                      "use server";
+
+                      const id = formData.get("id");
+                      if (!id || typeof id !== "string") {
+                        throw new Error("Invalid image ID");
+                      }
+
+                      const idAsNumber = Number(id);
+                      if (Number.isNaN(idAsNumber)) {
+                        throw new Error("Invalid image ID");
+                      }
+
+                      // Delete the image
+                      await deleteImage(idAsNumber);
+                    }}
+                  >
+                    <input type="hidden" name="id" value={image.id} />
+
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                      <AlertDialogAction type="submit">
+                        Delete
+                        </AlertDialogAction>
+                  </form>
+                      
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+            </AlertDialog>
+          </div>
         </Card>
       ))}
     </div>
-  );
-}
+      );
+    }
 
 export default async function HomePage() {
   return (
@@ -76,25 +118,20 @@ export default async function HomePage() {
             <div className="pt-16 pb-8 md:pt-24 md:pb-16 lg:pt-32 lg:pb-24 flex flex-col md:flex-row items-center">
               <div className="md:w-1/2 md:pr-8 lg:pr-12">
                 <h1 className="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl md:text-6xl">
-                  <span className="block">Connect and share</span>
-                  <span className="block text-primary">adorable pet moments</span>
+                  <span className="block">Store and share</span>
+                  <span className="block text-primary">your images easily</span>
                 </h1>
                 <p className="mt-3 max-w-md mx-auto text-base text-gray-500 sm:text-lg md:mt-5 md:text-xl md:mx-0">
-                  Upload, organize, and showcase your pet’s photos in one vibrant community. Engage with fellow pet lovers and access your favorite pet memories anytime, anywhere!
+                  Upload, organize, and share your images in one secure place. Access your photos from anywhere,
+                  anytime.
                 </p>
-                <div className="flex mt-8">
-                  <div className="px-6 py-3 bg-gray-800 text-white font-semibold rounded-lg shadow-md hover:bg-gray-900 transition duration-300 cursor-pointer text-center inline-block">
-                    <SignInButton mode="modal">Sign In Now</SignInButton>
+                <div 
+                    className="mt-8 px-6 py-3 bg-gray-800 text-white font-semibold rounded-lg shadow-md hover:bg-gray-900 transition duration-300 cursor-pointer text-center"
+                  >
+                    <SignInButton mode="modal">
+                      Sign In
+                    </SignInButton>
                   </div>
-                </div>
-
-
-
-
-
-
-
-
               </div>
               <div className="md:w-1/2 mt-12 md:mt-0">
                 <div className="relative h-[400px] w-full overflow-hidden rounded-lg shadow-xl">
@@ -103,14 +140,14 @@ export default async function HomePage() {
                     <div className="space-y-2">
                       <div className="bg-white rounded-lg shadow-sm h-40 overflow-hidden">
                         <img
-                          src="https://u4ocvzai6f.ufs.sh/f/5zX1RPP9E6ctjuhjueDUf1A87GmTew0i4Rk2J6Zs3nBNKYhM"
+                          src="https://u4ocvzai6f.ufs.sh/f/5zX1RPP9E6ctEovAJ9GHAPpaqdrOBmLFz7NfCJEoeh0U8SIx"
                           alt="Gallery preview"
                           className="w-full h-full object-cover"
                         />
                       </div>
                       <div className="bg-white rounded-lg shadow-sm h-40 overflow-hidden">
                         <img
-                          src="https://u4ocvzai6f.ufs.sh/f/5zX1RPP9E6ct6NxpRTWlKUa0Y2qsZu7exD5iSHTyQBroWIRL"
+                          src="https://u4ocvzai6f.ufs.sh/f/5zX1RPP9E6ctQdV6Lc4NyPovsDzXGaeJpH3m8i60fY1tKbIU"
                           alt="Gallery preview"
                           className="w-full h-full object-cover"
                         />
@@ -119,14 +156,14 @@ export default async function HomePage() {
                     <div className="space-y-2 pt-6">
                       <div className="bg-white rounded-lg shadow-sm h-40 overflow-hidden">
                         <img
-                          src="https://u4ocvzai6f.ufs.sh/f/5zX1RPP9E6ctd9s2nEfjEVUat0IgnQ8HRy6u3dFxw5qSploO"
+                          src="https://u4ocvzai6f.ufs.sh/f/5zX1RPP9E6ctzy2H1WXTtiKuWCAIsV3YNMrgHcdB0n64TeqP"
                           alt="Gallery preview"
                           className="w-full h-full object-cover"
                         />
                       </div>
                       <div className="bg-white rounded-lg shadow-sm h-40 overflow-hidden">
                         <img
-                          src="https://u4ocvzai6f.ufs.sh/f/5zX1RPP9E6ct78XwCokowBHFtpZjP4lOJ8LqcIrae9i7A5yk"
+                          src="https://u4ocvzai6f.ufs.sh/f/5zX1RPP9E6ctlRtjnRoVBiLunfsD5WS3mxReUQjZvwpXy0MK"
                           alt="Gallery preview"
                           className="w-full h-full object-cover"
                         />
@@ -140,19 +177,19 @@ export default async function HomePage() {
         </div>
       </SignedOut>
       <SignedIn>
-      <div className="sticky top-0 z-10 bg-gray-50">
-        <div className="max-w-3xl mx-auto flex items-center py-4 px-4 shadow-lg w-full rounded-b-lg bg-gray-100">
-          {/* UserView and UploadModal */}
-          <div className="flex gap-2 w-full">
-            <Link href="/user-page">
-              <UserView />
-            </Link>
-            <div className="flex-grow">
-              <UploadModal /> {/* Use the updated UploadModal component */}
+        <div className="top-0 z-10 bg-gray-50">
+          <div className="max-w-3xl mx-auto flex flex-col items-center py-6 px-4 shadow-lg w-full rounded-b-lg bg-gray-100">
+            {/* BackButton at the upper corner left */}
+            <div className="self-start">
+              <BackButton />
+            </div>
+
+            {/* UserView at the center with large impact */}
+            <div className="flex flex-col items-center gap-4 mt-4">
+              <UserImage />
             </div>
           </div>
         </div>
-      </div>
         <div className="py-4 px-4">
           <Images />
         </div>
