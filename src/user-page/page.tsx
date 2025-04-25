@@ -111,71 +111,61 @@ async function Images() {
 export default async function HomePage() {
   return (
     <main className="min-h-screen bg-slate-50">
-      <SignedOut>
-        <div className="relative overflow-hidden">
-          {/* Hero Section */}
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="pt-16 pb-8 md:pt-24 md:pb-16 lg:pt-32 lg:pb-24 flex flex-col md:flex-row items-center">
-              <div className="md:w-1/2 md:pr-8 lg:pr-12">
-                <h1 className="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl md:text-6xl">
-                  <span className="block">Store and share</span>
-                  <span className="block text-primary">your images easily</span>
-                </h1>
-                <p className="mt-3 max-w-md mx-auto text-base text-gray-500 sm:text-lg md:mt-5 md:text-xl md:mx-0">
-                  Upload, organize, and share your images in one secure place. Access your photos from anywhere,
-                  anytime.
-                </p>
-                <div 
-                    className="mt-8 px-6 py-3 bg-gray-800 text-white font-semibold rounded-lg shadow-md hover:bg-gray-900 transition duration-300 cursor-pointer text-center"
-                  >
-                    <SignInButton mode="modal">
-                      Sign In
-                    </SignInButton>
-                  </div>
-              </div>
-              <div className="md:w-1/2 mt-12 md:mt-0">
-                <div className="relative h-[400px] w-full overflow-hidden rounded-lg shadow-xl">
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-primary/10 z-10 rounded-lg"></div>
-                  <div className="grid grid-cols-2 gap-2 p-4 absolute inset-0">
-                    <div className="space-y-2">
-                      <div className="bg-white rounded-lg shadow-sm h-40 overflow-hidden">
-                        <img
-                          src="https://u4ocvzai6f.ufs.sh/f/5zX1RPP9E6ctEovAJ9GHAPpaqdrOBmLFz7NfCJEoeh0U8SIx"
-                          alt="Gallery preview"
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <div className="bg-white rounded-lg shadow-sm h-40 overflow-hidden">
-                        <img
-                          src="https://u4ocvzai6f.ufs.sh/f/5zX1RPP9E6ctQdV6Lc4NyPovsDzXGaeJpH3m8i60fY1tKbIU"
-                          alt="Gallery preview"
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                    </div>
-                    <div className="space-y-2 pt-6">
-                      <div className="bg-white rounded-lg shadow-sm h-40 overflow-hidden">
-                        <img
-                          src="https://u4ocvzai6f.ufs.sh/f/5zX1RPP9E6ctzy2H1WXTtiKuWCAIsV3YNMrgHcdB0n64TeqP"
-                          alt="Gallery preview"
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <div className="bg-white rounded-lg shadow-sm h-40 overflow-hidden">
-                        <img
-                          src="https://u4ocvzai6f.ufs.sh/f/5zX1RPP9E6ctlRtjnRoVBiLunfsD5WS3mxReUQjZvwpXy0MK"
-                          alt="Gallery preview"
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+<SignedOut>
+  <div className="relative overflow-hidden bg-gradient-to-b from-gray-50 to-white">
+    {/* Hero Section */}
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="flex flex-col lg:flex-row items-center gap-12">
+        {/* Text Content */}
+        <div className="lg:w-1/2 text-center lg:text-left">
+          <h1 className="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl md:text-6xl">
+            <span className="block">Store and share</span>
+            <span className="block text-primary">your images easily</span>
+          </h1>
+          <p className="mt-4 text-lg text-gray-600 max-w-lg mx-auto lg:mx-0">
+            Upload, organize, and share your images in one secure place. Access your photos from anywhere,
+            anytime.
+          </p>
+          <div className="mt-8">
+            <div className="inline-flex px-6 py-3 bg-gray-800 text-white font-semibold rounded-lg shadow-md hover:bg-gray-900 transition duration-300 cursor-pointer">
+              <SignInButton mode="modal">
+                Sign In
+              </SignInButton>
             </div>
           </div>
         </div>
-      </SignedOut>
+
+        {/* Image Gallery - Card Style */}
+        <div className="lg:w-1/2 mt-12 lg:mt-0">
+          <div className="grid grid-cols-2 gap-4">
+            {[
+              "https://u4ocvzai6f.ufs.sh/f/5zX1RPP9E6ctEovAJ9GHAPpaqdrOBmLFz7NfCJEoeh0U8SIx",
+              "https://u4ocvzai6f.ufs.sh/f/5zX1RPP9E6ctQdV6Lc4NyPovsDzXGaeJpH3m8i60fY1tKbIU",
+              "https://u4ocvzai6f.ufs.sh/f/5zX1RPP9E6ctzy2H1WXTtiKuWCAIsV3YNMrgHcdB0n64TeqP",
+              "https://u4ocvzai6f.ufs.sh/f/5zX1RPP9E6ctlRtjnRoVBiLunfsD5WS3mxReUQjZvwpXy0MK"
+            ].map((url, index) => (
+              <div 
+                key={index}
+                className="relative group overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300"
+              >
+                <div className="aspect-square w-full bg-gray-100">
+                  <img
+                    src={url}
+                    alt="Gallery preview"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                  <span className="text-white font-medium">Sample Image {index + 1}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</SignedOut>
       <SignedIn>
         <div className="top-0 z-10 bg-gray-50">
           <div className="max-w-3xl mx-auto flex flex-col items-center py-6 px-4 shadow-lg w-full rounded-b-lg bg-gray-100">
